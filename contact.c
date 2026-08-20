@@ -8,12 +8,12 @@
 
 void listContacts(AddressBook *addressBook) 
 {
-    // for(int i=0;i<addressBook->contactCount;i++){
-    //     printf("Name : %s\tPhone : %s\temail : %s\n",addressBook->contacts[i].name,
-    //                                                 addressBook->contacts[i].phone,
-    //                                                 addressBook->contacts[i].email);
-    // }
-    
+    printf("Name\t\tPhone\t\tEmail\n");
+    for(int i=0;i<addressBook->contactCount;i++){
+        printf("%s\t\t%s\t%s\n",addressBook->contacts[i].name,
+                                addressBook->contacts[i].phone,
+                                addressBook->contacts[i].email);
+    }
 }
 
 void initialize(AddressBook *addressBook) {
@@ -31,10 +31,10 @@ void saveAndExit(AddressBook *addressBook) {
 
 void createContact(AddressBook *addressBook)
 {
-    for(int i=addressBook->contactCount;i<MAX_CONTACTS;i++){
+    for(int i=addressBook->contactCount;i<3;i++){
 
-
-        printf("Enter the Name : ");        //Name
+        /*****************************    NAME   *************************************/
+        printf("Enter the Name : ");        
         while(1){
             int valid = 1;
             scanf(" %49[^\n]",addressBook->contacts[i].name);
@@ -53,7 +53,8 @@ void createContact(AddressBook *addressBook)
         }
         
 
-        printf("Enter the Phone no. : ");       //Phone
+        /*****************************    Phone   *************************************/
+        printf("Enter the Phone no. : ");       
         while(1){
             int count = 0;
             int valid = 1;
@@ -80,7 +81,8 @@ void createContact(AddressBook *addressBook)
         }
 
 
-        printf("Enter the email : ");       //Email
+        /*****************************    Email   *************************************/
+        printf("Enter the email : ");
         while(1){ 
             int valid = 1;
             scanf(" %49[^\n]",addressBook->contacts[i].email);
@@ -93,30 +95,42 @@ void createContact(AddressBook *addressBook)
                     }
             }
 
+            int special_character_pos = 0;
             if(valid){
                 int special_character_count = 0;        //Must 1 @
                 for(int j=0;addressBook->contacts[i].email[j]!=0;j++){
-                    if(addressBook->contacts[i].email[j] == '@')
+                    if(addressBook->contacts[i].email[j] == '@'){
                         special_character_count++;
+                        special_character_pos = j;
+                    }
                 }
 
                 if(special_character_count != 1){
                     valid = 0;
-                    break;
+                }
+            }
+
+                if(valid == 1){     
+                    char extension[5];      // Last 4 characters .com
+                    sscanf(addressBook->contacts[i].email,"%*[^@]@%*[^.]%s",extension);
+
+                    char com[] = {".com"};
+                                                        //First not @
+                    if((strcmp(extension,com) != 0) || (addressBook->contacts[i].email[0] == '@'))
+                        valid = 0;
                 }
 
-                char domain[20], extension[5];      
-                sscanf(addressBook->contacts[i].email,"%*[^@]@%[^.]%s",domain,extension);
+                if(valid == 1){             //Atleast 1 character between @ and .
+                    if(addressBook->contacts[i].email[special_character_pos + 1] == '.')
+                        valid = 0;
+                }
 
-                char com[] = {".com"};
-
-                if((strcmp(extension,com) != 0) || (addressBook->contacts[i].email[0] == '@'))
-                    valid = 0;
-                    
-                
-                
-            }
+                if(valid)
+                    break;
+                else
+                    printf("Re-Enter the email : ");
         }
+        addressBook->contactCount++;
     }
 }
 
