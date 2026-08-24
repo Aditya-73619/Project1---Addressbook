@@ -15,13 +15,25 @@ typedef struct {
 } AddressBook;
 
 void createContact(AddressBook *addressBook);
+int valid_name(char name[]);
+int valid_phone(char phone[]);
+int valid_email(char email[]);
+
 void searchContact(AddressBook *addressBook);
 void search_by_name(AddressBook *addressBook);
 void search_by_phone(AddressBook *addressBook);
 void search_by_email(AddressBook *addressBook);
+
 void editContact(AddressBook *addressBook);
 void deleteContact(AddressBook *addressBook);
+
 void listContacts(AddressBook *addressBook);
+void sort_by_name(AddressBook *addressBook);
+void sort_by_phone(AddressBook *addressBook);
+void sort_by_email(AddressBook *addressBook);
+void print_list(AddressBook *addressbook);
+void swap(AddressBook *addressBook,int i,int j);
+
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);
 
