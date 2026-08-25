@@ -13,7 +13,7 @@ void listContacts(AddressBook *addressBook)
     int choice;
     do{
         printf("1. Sort by Name\n");
-        printf("2. Sort by Phone no\n");
+        printf("2. Sort by Phone no.\n");
         printf("3. Sort by Email\n");
         printf("4. Exit\n");
         printf("Enter your choice: ");
@@ -28,7 +28,7 @@ void listContacts(AddressBook *addressBook)
                     break;
             case 4: printf("Exiting...");
                     break;
-            default: printf("Invalid Choice, Please try again.");
+            default: printf("\nInvalid Choice, Please try again.\n");
         }
     }while(choice!=4);    
 }
@@ -226,7 +226,7 @@ void searchContact(AddressBook *addressBook)
                     break;
             case 4: printf("Exiting...\n");
                     break;
-            default: printf("Invalid choice. Please try again.");
+            default: printf("\nInvalid choice. Please try again.\n");
         }
     }while(choice != 4);
 }
@@ -294,8 +294,58 @@ void search_by_email(AddressBook *addressBook){
 
 void editContact(AddressBook *addressBook)
 {
-	/* Define the logic for Editcontact */
-    
+    int choice;
+    do{
+        printf("\n1. Edit by name\n");
+        printf("2. Edit by Phone no.\n");
+        printf("3. Edit by email\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf(" %d",&choice);
+
+        switch(choice){
+            case 1: edit_by_name(addressBook);
+                    break;
+            case 2: edit_by_phone(addressBook);
+                    break;
+            case 3: edit_by_email(addressBook);
+                    break;
+            case 4: printf("Exiting...\n");
+                    break;
+            default: printf("\nInvalid choice, Please try again.\n");
+
+        }
+    }while(choice != 4);
+}
+
+void edit_by_name(AddressBook *addressBook){
+    search_by_name(addressBook);
+    edit(addressBook);
+}
+
+void edit_by_phone(AddressBook *addressBook){
+    search_by_phone(addressBook);
+    edit(addressBook);
+}
+
+void edit_by_email(AddressBook *addressBook){
+    search_by_email(addressBook);
+    edit(addressBook);
+}
+
+void edit(AddressBook *addressBook){
+    int edit;
+    printf("\nEnter the S.no you want to edit: ");
+    scanf(" %d",&edit);
+
+    int actual_index = index_arr[edit-1];
+
+    char name[50];
+    printf("Enter the Updated Name: ");
+    scanf(" %49[^\n]",name);
+
+    strcpy(addressBook->contacts[actual_index].name,name);
+    printf("\nName updated Successfully\n");
 }
 
 void deleteContact(AddressBook *addressBook)
@@ -318,7 +368,7 @@ void deleteContact(AddressBook *addressBook)
                     break;
             case 4: printf("Exiting...\n");
                     break;
-            default: printf("Invalid choice. Please try again.");
+            default: printf("\nInvalid choice, Please try again.\n");
         }
     }while(choice != 4);
 }
@@ -340,7 +390,7 @@ void delete_by_email(AddressBook *addressBook){
 
 void del_contact(AddressBook *addressBook){
     int del;
-    printf("\nEnter the input you want to delete: ");
+    printf("\nEnter the S.no to be deleted: ");
     scanf(" %d",&del);
 
     int actual_index = index_arr[del-1];
