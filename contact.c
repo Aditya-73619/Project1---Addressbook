@@ -4,7 +4,9 @@
 #include "contact.h"
 #include "file.h"
 #include <ctype.h>
-// #include "populate.h"
+
+int index_arr[MAX_CONTACTS];
+
 
 void listContacts(AddressBook *addressBook) 
 {
@@ -69,9 +71,10 @@ void sort_by_email(AddressBook *addressBook){
 }
 
 void print_list(AddressBook *addressBook){      //Printing the list
-    printf("Name\t\t\tPhone\t\tEmail\n");
+    int a=1;
+    printf("\nS.no\tName\t\tPhone\t\tEmail\n");
     for(int i=0;i<addressBook->contactCount;i++){
-        printf("%s\t\t%s\t%s\n",addressBook->contacts[i].name,
+        printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
                                 addressBook->contacts[i].phone,
                                 addressBook->contacts[i].email);
     }
@@ -203,11 +206,11 @@ int valid_email(char email[]){
 }
 
 
-void searchContact(AddressBook *addressBook) 
+void searchContact(AddressBook *addressBook)
 {
     int choice;
     do{
-        printf("1. Search by Name\n");
+        printf("\n1. Search by Name\n");
         printf("2. Search by Phone no.\n");
         printf("3. Search by Email\n");
         printf("4. Exit\n");
@@ -230,48 +233,61 @@ void searchContact(AddressBook *addressBook)
 
 void search_by_name(AddressBook *addressBook){
     char name[50];
+    int index = 0;
     printf("Enter the name : ");
     scanf(" %49[^\n]",name);
 
     if(valid_name(name)){
-        printf("Name\t\tPhone\t\tEmail\n");
+        int a=1;
+        printf("\nS.no\tName\t\tPhone\t\tEmail\n");
         for(int i=0;i<addressBook->contactCount;i++){
-            if(strcasestr(addressBook->contacts[i].name,name) != NULL)
-                printf("%s\t\t%s\t%s\n",addressBook->contacts[i].name,
+            if(strcasestr(addressBook->contacts[i].name,name) != NULL){
+                printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
                                         addressBook->contacts[i].phone,
                                         addressBook->contacts[i].email);
+            
+                index_arr[index++] = i;
+            }
         }
     }
 }
 
 void search_by_phone(AddressBook *addressBook){
     char phone[20];
+    int index = 0;
     printf("Enter the Phone no. :");
     scanf(" %19[^\n]",phone);
 
     if(valid_phone(phone)){
-        printf("Name\t\tPhone\t\tEmail\n");
+        int a=1;
+        printf("\nS.no\tName\t\tPhone\t\tEmail\n");
         for(int i=0;i<addressBook->contactCount;i++){
-            if(strstr(addressBook->contacts[i].phone,phone) != NULL)
-                printf("%s\t\t%s\t%s\n",addressBook->contacts[i].name,
+            if(strstr(addressBook->contacts[i].phone,phone) != NULL){
+                printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
                                         addressBook->contacts[i].phone,
                                         addressBook->contacts[i].email);
+                index_arr[index++] = i;
+            }
         }
     }
 }
 
 void search_by_email(AddressBook *addressBook){
     char email[50];
+    int index = 0;
     printf("Enter the Email :");
     scanf(" %49[^\n]",email);
 
     if(valid_email(email)){
-        printf("Name\t\tPhone\t\tEmail\n");
+        int a=1;
+        printf("\nS.no\tName\t\tPhone\t\tEmail\n");
         for(int i=0;i<addressBook->contactCount;i++){
-            if(strcasestr(addressBook->contacts[i].email,email) != NULL)
-                printf("%s\t\t%s\t%s\n",addressBook->contacts[i].name,
+            if(strcasestr(addressBook->contacts[i].email,email) != NULL){
+                printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
                                         addressBook->contacts[i].phone,
                                         addressBook->contacts[i].email);
+                index_arr[index++] = i;
+            }
         }
     }
 }
@@ -284,8 +300,55 @@ void editContact(AddressBook *addressBook)
 
 void deleteContact(AddressBook *addressBook)
 {
-	/* Define the logic for deletecontact */
-   
+    int choice;
+    do{
+        printf("\n1. Delete by Name\n");
+        printf("2. Delete by Phone no.\n");
+        printf("3. Delete by Email\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf(" %d",&choice);
+
+        switch(choice){
+            case 1: delete_by_name(addressBook);
+                    break;
+            case 2: delete_by_phone(addressBook);
+                    break;
+            case 3: delete_by_email(addressBook);
+                    break;
+            case 4: printf("Exiting...\n");
+                    break;
+            default: printf("Invalid choice. Please try again.");
+        }
+    }while(choice != 4);
 }
 
+void delete_by_name(AddressBook *addressBook){
+    search_by_name(addressBook);
+    del_contact(addressBook);
+}
+
+void delete_by_phone(AddressBook *addressBook){
+    search_by_phone(addressBook);
+    del_contact(addressBook);
+}
+
+void delete_by_email(AddressBook *addressBook){
+    search_by_email(addressBook);
+    del_contact(addressBook);
+}
+
+void del_contact(AddressBook *addressBook){
+    int del;
+    printf("\nEnter the input you want to delete: ");
+    scanf(" %d",&del);
+
+    int actual_index = index_arr[del-1];
+
+    for(int i=actual_index;i<addressBook->contactCount;i++){
+        addressBook->contacts[i] = addressBook->contacts[i+1];
+    }
+    addressBook->contactCount--;
+    printf("\nContact Deleted Successfully\n");
+}
 

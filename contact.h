@@ -25,7 +25,12 @@ void search_by_phone(AddressBook *addressBook);
 void search_by_email(AddressBook *addressBook);
 
 void editContact(AddressBook *addressBook);
+
 void deleteContact(AddressBook *addressBook);
+void delete_by_name(AddressBook *addressBook);
+void delete_by_phone(AddressBook *addressBook);
+void delete_by_email(AddressBook *addressBook);
+void del_contact(AddressBook *addressBook);
 
 void listContacts(AddressBook *addressBook);
 void sort_by_name(AddressBook *addressBook);
