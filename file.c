@@ -3,11 +3,38 @@
 
 
 void saveContactsToFile(AddressBook *addressBook) {
-    printf("here");
-  
+    FILE *fptr = fopen("contacts.csv","w");
+
+    if(fptr == NULL){
+        printf("File not opened\n");
+        return;
+    }
+    fprintf(fptr,"#%d\n",addressBook->contactCount);
+
+    for(int i=0;i<addressBook->contactCount;i++){
+        fprintf(fptr,"%s,%s,%s\n",addressBook->contacts[i].name,
+                                        addressBook->contacts[i].phone,
+                                        addressBook->contacts[i].email);
+    }
+
+    fclose(fptr);
 }
 
 void loadContactsFromFile(AddressBook *addressBook) {
-    printf("here");
+    FILE *fptr = fopen("contacts.csv","r");
+
+    if(fptr == NULL){
+        printf("File not opened");
+        return;
+    }
+
+    fscanf(fptr,"#%d\n",&addressBook->contactCount);
+
+    for(int i=0;i<addressBook->contactCount;i++){
+        fscanf(fptr,"%[^,],%[^,],%[^\n]\n",addressBook->contacts[i].name,
+                                        addressBook->contacts[i].phone,
+                                        addressBook->contacts[i].email);
+
+    }
     
 }
