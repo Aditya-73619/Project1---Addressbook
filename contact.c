@@ -341,57 +341,6 @@ int search_by_email(AddressBook *addressBook){
     return 1;
 }
 
-void vSearch_By_Phone(AddressBook *addressBook){
-    char phone[20];
-    arr_index = 0;
-    printf("Enter the Phone no. :");
-    
-    while(1){
-        scanf(" %19[^\n]",phone);
-
-        if(valid_phone(phone,addressBook)){
-            int a=1;
-            printf("\nS.no\tName\t\tPhone\t\tEmail\n");
-            for(int i=0;i<addressBook->contactCount;i++){
-                if(strstr(addressBook->contacts[i].phone,phone) != NULL){
-                    printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
-                                            addressBook->contacts[i].phone,
-                                            addressBook->contacts[i].email);
-                    index_arr[arr_index++] = i;
-                }
-            }
-            break;
-        }
-        else
-            printf("Re-Enter the Phone no. : ");
-    }
-}
-
-void vSearch_By_Email(AddressBook *addressBook){
-    char email[50];
-    arr_index = 0;
-    printf("Enter the Email :");
-    
-    while(1){
-        scanf(" %49[^\n]",email);
-
-        if(valid_email(email,addressBook)){
-            int a=1;
-            printf("\nS.no\tName\t\tPhone\t\tEmail\n");
-            for(int i=0;i<addressBook->contactCount;i++){
-                if(strcasestr(addressBook->contacts[i].email,email) != NULL){
-                    printf("%d\t%s\t\t%s\t%s\n",a++,addressBook->contacts[i].name,
-                                            addressBook->contacts[i].phone,
-                                            addressBook->contacts[i].email);
-                    index_arr[arr_index++] = i;
-                }
-            }
-            break;
-        }
-        else
-            printf("Re-Enter the email : ");
-    }
-}
 
 void editContact(AddressBook *addressBook)
 {

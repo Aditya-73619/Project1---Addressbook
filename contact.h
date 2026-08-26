@@ -46,6 +46,5 @@ void swap(AddressBook *addressBook,int i,int j);
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);
 
-void vSearch_By_Phone(AddressBook *addressBook);
 
 #endif
