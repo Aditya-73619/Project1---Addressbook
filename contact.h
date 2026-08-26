@@ -16,19 +16,19 @@ typedef struct {
 
 void createContact(AddressBook *addressBook);
 int valid_name(char name[]);
-int valid_phone(char phone[]);
-int valid_email(char email[]);
+int valid_phone(char phone[],AddressBook *addressBook);
+int valid_email(char email[],AddressBook *addressBook);
 
 void searchContact(AddressBook *addressBook);
-void search_by_name(AddressBook *addressBook);
-void search_by_phone(AddressBook *addressBook);
-void search_by_email(AddressBook *addressBook);
+int search_by_name(AddressBook *addressBook);
+int search_by_phone(AddressBook *addressBook);
+int search_by_email(AddressBook *addressBook);
 
 void editContact(AddressBook *addressBook);
 void edit_by_name(AddressBook *addressBook);
 void edit_by_phone(AddressBook *addressBook);
 void edit_by_email(AddressBook *addressBook);
-void edit(AddressBook *addressBook);
+int S_no(AddressBook *addressBook);
 
 void deleteContact(AddressBook *addressBook);
 void delete_by_name(AddressBook *addressBook);
@@ -45,5 +45,7 @@ void swap(AddressBook *addressBook,int i,int j);
 
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);
+
+void vSearch_By_Phone(AddressBook *addressBook);
 
 #endif
