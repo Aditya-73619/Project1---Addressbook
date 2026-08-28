@@ -16,8 +16,8 @@ typedef struct {
 
 void createContact(AddressBook *addressBook);
 int valid_name(char name[]);
-int valid_phone(char phone[],AddressBook *addressBook);
-int valid_email(char email[],AddressBook *addressBook);
+int valid_phone(char phone[],AddressBook *addressBook,int actual_index);
+int valid_email(char email[],AddressBook *addressBook,int actual_index);
 
 void searchContact(AddressBook *addressBook);
 int search_by_name(AddressBook *addressBook);
@@ -25,9 +25,9 @@ int search_by_phone(AddressBook *addressBook);
 int search_by_email(AddressBook *addressBook);
 
 void editContact(AddressBook *addressBook);
-void edit_by_name(AddressBook *addressBook);
-void edit_by_phone(AddressBook *addressBook);
-void edit_by_email(AddressBook *addressBook);
+void edit_by_name(AddressBook *addressBook,int actual_index);
+void edit_by_phone(AddressBook *addressBook,int actual_index);
+void edit_by_email(AddressBook *addressBook,int actual_index);
 int S_no(AddressBook *addressBook);
 
 void deleteContact(AddressBook *addressBook);
